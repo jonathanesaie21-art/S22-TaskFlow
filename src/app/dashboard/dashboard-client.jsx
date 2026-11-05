@@ -91,11 +91,14 @@ export default function DashboardClient({ tasks }) {
 
   return (
     <main className="mx-auto max-w-6xl space-y-8 p-6">
-      <header>
-        <h1 className="text-3xl font-bold text-slate-900">Dashboard</h1>
-        <p className="mt-2 text-slate-600">
-          Retrouvez vos tâches et leur avancement.
-        </p>
+      <header className="flex items-start justify-between gap-4">
+        <div>
+          <h1 className="text-3xl font-bold text-slate-900">Dashboard</h1>
+          <p className="mt-2 text-slate-600">
+            Retrouvez vos tâches et leur avancement.
+          </p>
+        </div>
+        <SignOutButton />
       </header>
 
       {/* Statistiques calculées sur les tâches de l'utilisateur connecté. */}
