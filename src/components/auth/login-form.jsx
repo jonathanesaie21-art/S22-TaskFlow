@@ -1,5 +1,8 @@
 "use client";
 
+import { signIn } from "next-auth/react";
+import { safeRedirect } from "@/lib/safe-redirect";
+import GoogleButton from "./google-button";
 import { useId, useState } from "react";
 import { useRouter } from "next/navigation";
 import { validateLogin } from "@/lib/validation";
@@ -10,6 +13,8 @@ export default function LoginForm({ callbackUrl, onSwitch }) {
   const [formError, setFormError] = useState("");
   const [pending, setPending] = useState(false);
   const router = useRouter();
+  const destination = safeRedirect(callbackUrl);
+
   async function handleSubmit(event) {
     event.preventDefault();
     setFormError("");
@@ -30,21 +35,22 @@ export default function LoginForm({ callbackUrl, onSwitch }) {
     setPending(true);
 
     try {
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+      const result = await signIn("credentials", {
+        email: payload.email,
+        password: payload.password,
+        redirect: false,
       });
-      const result = await response.json().catch(() => ({}));
 
-      if (!response.ok) {
-        setFieldErrors(result.fieldErrors ?? {});
-        setFormError(result.error ?? "Connexion impossible. Réessayez.");
+      if (!result || result.error) {
+        setFormError(
+          result?.code === "too_many_attempts"
+            ? "Trop de tentatives. Réessayez dans 15 minutes."
+            : "Adresse e-mail ou mot de passe incorrect.",
+        );
         setPending(false);
         return;
       }
 
-      // callbackUrl vient de l'URL : toujours la filtrer avant de rediriger.
       router.push(destination);
       router.refresh();
     } catch {
@@ -57,12 +63,13 @@ export default function LoginForm({ callbackUrl, onSwitch }) {
 
   return (
     <form className="auth-form" onSubmit={handleSubmit} noValidate>
+      {" "}
+      <GoogleButton callbackUrl={destination} />
       {formError && (
         <p className="auth-alert" role="alert">
           {formError}
         </p>
       )}
-
       <div className="auth-field">
         <label htmlFor={`${id}-email`}>Adresse e-mail</label>
         <input
@@ -81,7 +88,6 @@ export default function LoginForm({ callbackUrl, onSwitch }) {
           </p>
         )}
       </div>
-
       <div className="auth-field">
         <label htmlFor={`${id}-password`}>Mot de passe</label>
         <input
@@ -101,11 +107,9 @@ export default function LoginForm({ callbackUrl, onSwitch }) {
           </p>
         )}
       </div>
-
       <button type="submit" className="auth-submit" disabled={pending}>
         {pending ? "Connexion…" : "Se connecter"}
       </button>
-
       <p className="auth-switch">
         Pas encore de compte ?{" "}
         <button type="button" onClick={onSwitch}>

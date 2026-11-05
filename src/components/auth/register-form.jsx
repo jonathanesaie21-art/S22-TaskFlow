@@ -1,5 +1,8 @@
 "use client";
 
+import { signIn } from "next-auth/react";
+import { safeRedirect } from "@/lib/safe-redirect";
+import GoogleButton from "./google-button";
 import { useId, useState } from "react";
 import { useRouter } from "next/navigation";
 import { validateRegister } from "@/lib/validation";
@@ -34,6 +37,7 @@ export default function RegisterForm({ onSwitch }) {
   const [pending, setPending] = useState(false);
 
   const router = useRouter();
+  const destination = safeRedirect(null);
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -53,25 +57,28 @@ export default function RegisterForm({ onSwitch }) {
     setPending(true);
 
     try {
-      const response = await fetch("/api/auth/register", {
+      const response = await fetch("/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
       const result = await response.json().catch(() => ({}));
 
-      if (!response.ok) {
-        setFieldErrors(result.fieldErrors ?? {});
+      // Compte créé : on ouvre la session avec Auth.js.
+      const login = await signIn("credentials", {
+        email: payload.email,
+        password: payload.password,
+        redirect: false,
+      });
+
+      if (!login || login.error) {
         setFormError(
-          result.fieldErrors
-            ? ""
-            : (result.error ?? "Inscription impossible. Réessayez."),
+          "Compte créé, mais la connexion a échoué. Connectez-vous.",
         );
         setPending(false);
         return;
       }
 
-      // Le compte est créé et la session ouverte.
       router.push(destination);
       router.refresh();
     } catch {
@@ -84,6 +91,7 @@ export default function RegisterForm({ onSwitch }) {
 
   return (
     <form className="auth-form" onSubmit={handleSubmit} noValidate>
+      <GoogleButton callbackUrl={destination} />
       {formError && (
         <p className="auth-alert" role="alert">
           {formError}

@@ -159,6 +159,23 @@
   outline-offset: 2px;
 }
 
+.auth-google {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border-radius: 0.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.auth-divider {
+  text-align: center;
+  opacity: 0.6;
+  margin: 0.75rem 0;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .auth-dialog *,
   .auth-dialog::backdrop {
