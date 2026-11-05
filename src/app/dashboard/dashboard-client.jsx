@@ -1,4 +1,5 @@
 "use client";
+import SignOutButton from "@/components/auth/sign-out-button";
 
 // useMemo évite de recalculer les résultats à chaque rendu si les données n'ont pas changé.
 // useState mémorise la recherche et le message d'erreur.
@@ -50,7 +51,7 @@ export default function DashboardClient({ tasks }) {
       inProgress: tasks.filter((task) => task.status === "IN_PROGRESS").length,
       done: tasks.filter((task) => task.status === "DONE").length,
     }),
-    [tasks] // Recalcule les compteurs lorsque la liste des tâches change.
+    [tasks], // Recalcule les compteurs lorsque la liste des tâches change.
   );
 
   // Filtre les tâches dont le titre contient la recherche.
@@ -63,7 +64,7 @@ export default function DashboardClient({ tasks }) {
 
     // Ne conserve que les tâches dont le titre contient la recherche.
     return tasks.filter((task) =>
-      task.title.toLocaleLowerCase().includes(query)
+      task.title.toLocaleLowerCase().includes(query),
     );
   }, [tasks, search]); // Refiltre lorsque la recherche ou les tâches changent.
 
