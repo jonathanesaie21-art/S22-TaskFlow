@@ -64,6 +64,19 @@ export default function RegisterForm({ onSwitch }) {
       });
       const result = await response.json().catch(() => ({}));
 
+      // Inscription refusée (e-mail déjà pris, trop de tentatives, erreur serveur) :
+      // on affiche la raison et on ne tente pas de connexion.
+      if (!response.ok) {
+        setFieldErrors(result.fieldErrors ?? {});
+        setFormError(
+          result.fieldErrors
+            ? ""
+            : (result.error ?? "L'inscription a échoué. Réessayez."),
+        );
+        setPending(false);
+        return;
+      }
+
       // Compte créé : on ouvre la session avec Auth.js.
       const login = await signIn("credentials", {
         email: payload.email,
