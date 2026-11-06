@@ -11,12 +11,23 @@ const SCENES = [
 
 const SCENE_DURATION = 6500;
 
+// Délai avant de charger les scènes 2 et 3 : la première image (LCP)
+// se charge seule, sans concurrence. Doit rester inférieur à SCENE_DURATION.
+const PRELOAD_DELAY = 2500;
+
 // Arrière-plan cinématique : 3 ambiances qui s'enchaînent, parallaxe
 // à la souris, orbes lumineux, grain, indicateur de scène.
 // Doit être placé dans un conteneur .landing (variables --pointer-x/y).
 export default function LandingEffects() {
   const rootRef = useRef(null);
   const [active, setActive] = useState(0);
+  const [ready, setReady] = useState(false);
+
+  // Autorise le chargement des scènes suivantes après le premier affichage
+  useEffect(() => {
+    const id = window.setTimeout(() => setReady(true), PRELOAD_DELAY);
+    return () => window.clearTimeout(id);
+  }, []);
 
   // Rotation automatique (désactivée si l'utilisateur réduit les animations)
   useEffect(() => {
@@ -31,20 +42,29 @@ export default function LandingEffects() {
   }, [active]);
 
   // Parallaxe : met à jour les variables CSS du conteneur .landing
+  // (limité à une mise à jour par image, et seulement avec une souris)
   useEffect(() => {
     const landing = rootRef.current?.closest(".landing");
     if (!landing) return;
+    if (!window.matchMedia("(hover: hover)").matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    let frame = 0;
 
     function handleMove(event) {
-      const rect = landing.getBoundingClientRect();
-      landing.style.setProperty(
-        "--pointer-x",
-        String((event.clientX - rect.left) / rect.width - 0.5),
-      );
-      landing.style.setProperty(
-        "--pointer-y",
-        String((event.clientY - rect.top) / rect.height - 0.5),
-      );
+      if (frame) return;
+      frame = window.requestAnimationFrame(() => {
+        frame = 0;
+        const rect = landing.getBoundingClientRect();
+        landing.style.setProperty(
+          "--pointer-x",
+          String((event.clientX - rect.left) / rect.width - 0.5),
+        );
+        landing.style.setProperty(
+          "--pointer-y",
+          String((event.clientY - rect.top) / rect.height - 0.5),
+        );
+      });
     }
 
     function handleLeave() {
@@ -56,6 +76,7 @@ export default function LandingEffects() {
     landing.addEventListener("pointerleave", handleLeave);
 
     return () => {
+      window.cancelAnimationFrame(frame);
       landing.removeEventListener("pointermove", handleMove);
       landing.removeEventListener("pointerleave", handleLeave);
     };
@@ -69,13 +90,16 @@ export default function LandingEffects() {
             key={scene.src}
             className={`landing-scene ${index === active ? "is-active" : ""}`}
           >
-            <Image
-              src={scene.src}
-              alt=""
-              fill
-              sizes="100vw"
-              priority={index === 0}
-            />
+            {(index === 0 || index === active || ready) && (
+              <Image
+                src={scene.src}
+                alt=""
+                fill
+                sizes="100vw"
+                quality={60}
+                priority={index === 0}
+              />
+            )}
           </div>
         ))}
         <div className="landing-depth" />
