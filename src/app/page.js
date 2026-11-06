@@ -4,6 +4,10 @@ import LandingEffects from "@/components/landing/landing-effects";
 import Logo from "@/components/ui/logo";
 import "./landing.css";
 
+export const metadata = {
+  alternates: { canonical: "/" },
+};
+
 // Page d'accueil : SSG. Ne lire ici ni cookies, ni headers, ni session.
 export const dynamic = "force-static";
 
