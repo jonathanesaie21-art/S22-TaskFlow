@@ -175,6 +175,12 @@
   opacity: 0.6;
   margin: 0.75rem 0;
 }
+.auth-google {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
 
 @media (prefers-reduced-motion: reduce) {
   .auth-dialog *,

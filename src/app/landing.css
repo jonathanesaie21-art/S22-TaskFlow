@@ -1,4 +1,18 @@
 /* Page d'accueil immersive — styles limités à .landing */
+.landing-line > span,
+.landing-line > em {
+  animation: landing-word-reveal 700ms calc(100ms + var(--word-index) * 60ms)
+    forwards cubic-bezier(0.16, 1, 0.3, 1);
+}
+.landing-pill {
+  animation-delay: 100ms;
+}
+.landing-hero-copy > p {
+  animation-delay: 500ms;
+}
+.landing-actions {
+  animation-delay: 600ms;
+}
 
 .landing {
   --pointer-x: 0;
@@ -676,5 +690,12 @@
   .landing-orb,
   .landing-hero-copy {
     transform: none !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .landing-orb,
+  .landing-grain {
+    display: none;
   }
 }
