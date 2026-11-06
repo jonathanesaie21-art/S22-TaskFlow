@@ -1,14 +1,13 @@
-import 'dotenv/config';
-import pg from 'pg';
+import "dotenv/config";
+import pg from "pg";
 
 const { Pool } = pg;
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-});
-
-pool.on('error', (error) => {
-  console.error('Erreur inattendue du pool PostgreSQL :', error);
+  max: 5,
+  idleTimeoutMillis: 10000,
+  connectionTimeoutMillis: 5000,
 });
 
 export default pool;

@@ -8,9 +8,11 @@ import {
   useMemo,
   useState,
 } from "react";
-import AuthModal from "./auth-modal";
-import LoginForm from "./login-form";
-import RegisterForm from "./register-form";
+import dynamic from "next/dynamic";
+
+const AuthModal = dynamic(() => import("./auth-modal"));
+const LoginForm = dynamic(() => import("./login-form"));
+const RegisterForm = dynamic(() => import("./register-form"));
 
 const AuthContext = createContext(null);
 
