@@ -4,9 +4,10 @@ import TaskflowBrand from "@/components/ui/taskflow-brand";
 import "@/components/guide/guide.css";
 
 export const metadata = {
-  title: "Guide d’utilisation — TaskFlow",
+  title: "Guide d’utilisation",
   description:
     "Prenez TaskFlow en main : créer, organiser et suivre vos tâches étape par étape.",
+  alternates: { canonical: "/guide" },
 };
 
 // Page statique régénérée toutes les heures (ISR) : son contenu ne dépend pas de l'utilisateur.
@@ -137,8 +138,8 @@ export default function GuidePage() {
               <em>étape par étape.</em>
             </h1>
             <p className="guide-lead">
-              Retrouvez les actions essentielles pour organiser vos tâches, suivre vos
-              priorités et avancer plus sereinement.
+              Retrouvez les actions essentielles pour organiser vos tâches,
+              suivre vos priorités et avancer plus sereinement.
             </p>
           </section>
 
@@ -160,7 +161,9 @@ export default function GuidePage() {
           <section className="guide-dark" aria-labelledby="guide-basics">
             <div>
               <p className="guide-dark-label">Les fondamentaux</p>
-              <h2 id="guide-basics">Tout ce qu’il faut savoir pour bien démarrer</h2>
+              <h2 id="guide-basics">
+                Tout ce qu’il faut savoir pour bien démarrer
+              </h2>
             </div>
             <ul>
               {BASICS.map((item) => (
@@ -184,7 +187,17 @@ export default function GuidePage() {
             </div>
             <AuthButton mode="login" className="guide-button">
               Se connecter
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
                 <path d="m9.5 6 6 6-6 6" />
               </svg>
             </AuthButton>
