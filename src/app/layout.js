@@ -29,10 +29,35 @@ export const metadata = {
     template: "%s | TaskFlow",
   },
   description:
-    "TaskFlow vous aide à centraliser vos tâches, suivre vos priorités et avancer sereinement vers vos objectifs.",
+    "TaskFlow, application gratuite de gestion de tâches : centralisez vos priorités et échéances, suivez votre progression et organisez vos journées simplement.",
+  keywords: [
+    "gestion de tâches",
+    "to-do list en ligne",
+    "organiser ses tâches",
+    "suivi des priorités",
+    "application de productivité",
+    "TaskFlow",
+    "Le top 5 des applications de To-Do list gratuites pour la famille",
+    "Comment choisir une application de liste de tâches vraiment simple ?",
+    "bullet journal numérique simple",
+    "modèle liste de tâches esthétique",
+    "planning de la semaine à imprimer gratuit",
+    "synchroniser liste de tâches téléphone et ordi",
+    "application liste de tâches pc windows",
+    "meilleure appli to do list android",
+    "application rappel iphone gratuit",
+    "comment organiser ses tâches ménagères",
+    "application planning familial gratuit",
+    "liste de courses partagée couple",
+    "application de tâches partagée en famille",
+    "application gestion de tâches visuelle",
+    "meilleure appli gratuite pour s'organiser",
+    "application liste de tâches simple",
+  ],
   openGraph: {
     title: "TaskFlow — Moins de chaos. Plus de progrès.",
-    description: "Centralisez vos tâches et suivez votre progression.",
+    description:
+      "Application gratuite de gestion de tâches : priorités, échéances et suivi de progression.",
     type: "website",
     locale: "fr_FR",
     images: ["/images/landing/clarte.jpg"],
@@ -40,7 +65,8 @@ export const metadata = {
   twitter: {
     card: "summary_large_image",
     title: "TaskFlow — Moins de chaos. Plus de progrès.",
-    description: "Centralisez vos tâches et suivez votre progression.",
+    description:
+      "Application gratuite de gestion de tâches : priorités, échéances et suivi de progression.",
     images: ["/images/landing/clarte.jpg"],
   },
 };

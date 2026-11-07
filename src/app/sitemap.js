@@ -1,14 +1,21 @@
-export default function sitemap() {
-  const base = "https://s22-taskflow.vercel.app";
-  const now = new Date();
+const base = "https://s22-taskflow.vercel.app";
 
+// Change cette date uniquement quand le contenu des pages change vraiment
+const LAST_UPDATE = new Date("2026-11-07");
+
+export default function sitemap() {
   return [
-    { url: base, lastModified: now, changeFrequency: "monthly", priority: 1 },
+    {
+      url: base,
+      lastModified: LAST_UPDATE,
+      changeFrequency: "weekly",
+      priority: 1,
+    },
     {
       url: `${base}/guide`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.7,
+      lastModified: LAST_UPDATE,
+      changeFrequency: "weekly",
+      priority: 0.8,
     },
   ];
 }
