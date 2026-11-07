@@ -69,6 +69,7 @@ export const metadata = {
       "Application gratuite de gestion de tâches : priorités, échéances et suivi de progression.",
     images: ["/images/landing/clarte.jpg"],
   },
+  verification: { google: "jFQ7_ehpPhbkjnk4C1vo0LyDXaziMUwk4RPUv8VuX4c" },
 };
 
 export const viewport = {
