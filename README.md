@@ -28,7 +28,7 @@ node database/migrate.js # applique les migrations SQL
 npm run dev
 ```
 
-L'application est disponible sur http://localhost:3000.
+L'application est disponible sur https://s22-taskflow.vercel.app/.
 
 ### Variables d'environnement
 
