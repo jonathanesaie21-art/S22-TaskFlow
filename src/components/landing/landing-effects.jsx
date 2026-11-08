@@ -4,9 +4,21 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 const SCENES = [
-  { src: "/images/landing/clarte.jpg", label: "Clarté" },
-  { src: "/images/landing/collaboration.jpg", label: "Collaboration" },
-  { src: "/images/landing/concentration.jpg", label: "Concentration" },
+  {
+    src: "/images/landing/clarte.jpg",
+    label: "Clarté",
+    alt: "Espace de travail clair et organisé",
+  },
+  {
+    src: "/images/landing/collaboration.jpg",
+    label: "Collaboration",
+    alt: "Équipe qui collabore au bureau",
+  },
+  {
+    src: "/images/landing/concentration.jpg",
+    label: "Concentration",
+    alt: "Personne concentrée sur son travail",
+  },
 ];
 
 const SCENE_DURATION = 6500;
@@ -93,7 +105,7 @@ export default function LandingEffects() {
             {(index === 0 || index === active || ready) && (
               <Image
                 src={scene.src}
-                alt=""
+                alt={scene.alt}
                 fill
                 sizes="100vw"
                 quality={60}
