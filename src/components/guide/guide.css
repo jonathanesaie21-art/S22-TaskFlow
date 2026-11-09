@@ -94,7 +94,11 @@
   align-items: center;
   padding: 72px 0 64px;
   text-align: center;
-  background: radial-gradient(60% 70% at 50% 0%, #f4f2ff 0%, rgba(255, 255, 255, 0) 100%);
+  background: radial-gradient(
+    60% 70% at 50% 0%,
+    #f4f2ff 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
 }
 .guide-badge {
   display: inline-flex;
@@ -264,6 +268,13 @@
 .guide-cta p {
   margin: 0;
   color: #747b8c;
+}
+a.guide-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
 }
 
 @media (max-width: 900px) {

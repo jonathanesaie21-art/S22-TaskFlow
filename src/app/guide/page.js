@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { AuthButton, AuthProvider } from "@/components/auth/auth-provider";
+import { AuthProvider } from "@/components/auth/auth-provider";
+import GuideAuthButton from "@/components/guide/guide-auth-button";
 import TaskflowBrand from "@/components/ui/taskflow-brand";
 import "@/components/guide/guide.css";
 
@@ -11,6 +12,7 @@ export const metadata = {
 };
 
 // Page statique régénérée toutes les heures (ISR) : son contenu ne dépend pas de l'utilisateur.
+// L'état de connexion est lu côté client dans <GuideAuthButton>.
 export const revalidate = 3600;
 
 const STEPS = [
@@ -51,6 +53,22 @@ const BASICS = [
     text: "Cliquez sur une tâche pour la modifier. Toute suppression demande une confirmation avant d’être appliquée.",
   },
 ];
+
+const ARROW_ICON = (
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <path d="m9.5 6 6 6-6 6" />
+  </svg>
+);
 
 function GuideIcon({ name }) {
   const common = {
@@ -120,9 +138,12 @@ export default function GuidePage() {
             <Link href="/" className="guide-nav-link">
               Accueil
             </Link>
-            <AuthButton mode="login" className="guide-button">
+            <GuideAuthButton
+              className="guide-button"
+              dashboardLabel="Mon espace"
+            >
               Se connecter
-            </AuthButton>
+            </GuideAuthButton>
           </nav>
         </header>
 
@@ -185,22 +206,14 @@ export default function GuidePage() {
               <h2>Prêt à organiser vos journées ?</h2>
               <p>Connectez-vous et commencez à gérer vos tâches.</p>
             </div>
-            <AuthButton mode="login" className="guide-button">
+            <GuideAuthButton
+              className="guide-button"
+              dashboardLabel="Ouvrir mon tableau de bord"
+              icon={ARROW_ICON}
+            >
               Se connecter
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <path d="m9.5 6 6 6-6 6" />
-              </svg>
-            </AuthButton>
+              {ARROW_ICON}
+            </GuideAuthButton>
           </section>
         </main>
       </div>
