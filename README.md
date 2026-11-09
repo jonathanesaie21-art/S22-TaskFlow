@@ -2,6 +2,25 @@
 
 Application de gestion personnelle des tâches : chaque utilisateur crée un compte, se connecte (e-mail et mot de passe, ou Google) et gère ses propres tâches depuis un tableau de bord.
 
+**Site en ligne :** https://s22-taskflow.vercel.app
+
+## Compte de test
+
+Pour essayer l'application sans créer de compte :
+
+| Champ | Valeur |
+| --- | --- |
+| Adresse e-mail | jcostaesaie25@gmail.com |
+| Mot de passe | 26KJ@40POhg|
+
+Comment l'utiliser :
+
+1. Ouvrir https://s22-taskflow.vercel.app
+2. Cliquer sur **Se connecter**, puis saisir l'e-mail et le mot de passe ci-dessus.
+3. Le tableau de bord s'ouvre avec la liste des tâches.
+
+Il est aussi possible de créer son propre compte (bouton **Commencer gratuitement**) ou de se connecter avec Google. Ce compte de test est réservé à la démonstration et ne contient aucune donnée personnelle.
+
 ## Fonctionnalités
 
 - Page d'accueil statique (SSG) avec modales de connexion et d'inscription.
@@ -28,7 +47,7 @@ node database/migrate.js # applique les migrations SQL
 npm run dev
 ```
 
-L'application est disponible sur https://s22-taskflow.vercel.app/.
+En local, l'application est disponible sur http://localhost:3000. La version en ligne est sur https://s22-taskflow.vercel.app.
 
 ### Variables d'environnement
 
@@ -44,7 +63,7 @@ Ne jamais enregistrer le fichier `.env` dans Git.
 ## Structure
 
 ```
-database/migrations/   migrations SQL versionnées (001 à 004)
+database/migrations/   migrations SQL versionnées (001 à 005)
 docs/                  architecture, conventions, base de données, déploiement, audit
 src/app/               pages et routes (accueil, dashboard, guide, api)
 src/components/        auth, dashboard, guide, landing, ui
@@ -73,6 +92,16 @@ Toutes les routes `/api/tasks` exigent une session ; l'identifiant de l'utilisat
 | `npm run start` | Lance le build de production |
 | `npm run lint` | Vérification ESLint |
 
+## Équipe
+
+| Membre | Compte GitHub | Rôle |
+
+| ESAÏE COSTA Jonathan Moïse | [@jonathanesaie21-art](https://github.com/jonathanesaie21-art) | auth , rendu & perf, déploiyement, feature |
+| MOUYOCKOLO Chrislain | [@chrislainInfo](https://github.com/chrislainInfo) | configuration du repos |
+| TSIBA Gaevie | [@loriontsiba-debug](https://github.com/loriontsiba-debug) | recherche et statistique |
+
+Membres du groupe qui n'ont pas pu contribuer au dépôt : NDOUKOU MAMBOU Don Réel (raison: problème de courant),TSIMBA Cyrille.
+
 ## Documentation
 
 - [Architecture](docs/architecture.md)
@@ -80,6 +109,12 @@ Toutes les routes `/api/tasks` exigent une session ; l'identifiant de l'utilisat
 - [Base de données](docs/database.md)
 - [Déploiement sur Vercel](docs/deploiement-vercel.md)
 - [Audit Lighthouse](docs/audit-lighthouse.md)
+
+### Audit Lighthouse
+
+Scores Lighthouse (mobile) de la page d'accueil. Le détail des mesures et des optimisations est dans [docs/audit-lighthouse.md](docs/audit-lighthouse.md).
+
+![Audit Lighthouse mobile de la page d'accueil](docs/images/lighthouse-mobile.png)
 
 ## Contribuer
 
